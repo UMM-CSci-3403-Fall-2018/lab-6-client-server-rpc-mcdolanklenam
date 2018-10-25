@@ -1,6 +1,10 @@
 package xrate;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 /**
  * Provide access to basic currency exchange rate services.
@@ -49,11 +53,13 @@ public class ExchangeRateReader {
      * @throws IOException
      */
     public float getExchangeRate(String currencyCode, int year, int month, int day) throws IOException {
-        // TODO Your code here
+        // TODO Your code here add no totally not secret file locally
+
+        // /String content = new String(Files.readAllBytes(Paths.get(secret)));
 
 
-        URL url = new URL(baseURL/year-month-day);
-        InputStream inputStream = url.openStream();
+        //URL url = new URL(baseURL/year-month-day);
+        //InputStream inputStream = url.openStream();
         throw new UnsupportedOperationException();
     }
 
