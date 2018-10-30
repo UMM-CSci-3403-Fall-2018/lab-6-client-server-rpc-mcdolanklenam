@@ -1,3 +1,6 @@
+# We need to make sure people don't commit the file containing the "secret"
+# access keys for services like Fixer.io
+etc/access_keys.properties
 
 # Created by https://www.gitignore.io/api/java,intellij
 
@@ -5,9 +8,6 @@
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
-#Secret file
-src/secret
-etc/access_keys.properties
 
 # User-specific stuff
 .idea/**/workspace.xml
