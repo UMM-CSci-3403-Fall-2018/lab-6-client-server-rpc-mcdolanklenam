@@ -17,6 +17,7 @@ import java.util.Properties;
 public class ExchangeRateReader {
 
     private String accessKey;
+    private String baseURL;
 
     /**
      * Construct an exchange rate reader using the given base URL. All requests
@@ -31,7 +32,7 @@ public class ExchangeRateReader {
      */
     public ExchangeRateReader(String baseURL) throws IOException {
         // TODO Your code here
-        this.accessKey = baseURL;
+        this.baseURL = baseURL;
         /*
          * DON'T DO MUCH HERE!
          * People often try to do a lot here, but the action is actually in
@@ -81,7 +82,8 @@ public class ExchangeRateReader {
      * @throws IOException
      */
     public float getExchangeRate(String currencyCode, int year, int month, int day) throws IOException {
-        // TODO Your code here add no totally not secret file locally
+        // TODO Your code here
+        String targetURL = baseURL + year + "-" + month + "-" + day + "?access_key" + accessKey;
 
         // /String content = new String(Files.readAllBytes(Paths.get(secret)));
 
