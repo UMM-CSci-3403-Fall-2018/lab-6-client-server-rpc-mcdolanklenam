@@ -90,25 +90,20 @@ public class ExchangeRateReader {
 
 
         String targetURL = baseURL + year + "-" + correctDate(month) + "-" + correctDate(day) + "?access_key=" + accessKey;
-
+        //Creates an URL
         URL url = new URL(targetURL);
-
+        //Opens the URL
         InputStream inputStream = url.openStream();
-
+        //Reads through the URL
         Reader reader = new InputStreamReader(inputStream);
-
+        //Creates a JsonObject containing the json of the webpage
         JsonObject object = new JsonParser().parse(reader).getAsJsonObject();
-
+        //Creates a JsonObject of the rates in fullobj
         JsonObject data = object.getAsJsonObject("rates");
+        //Returns the exchange rate
         return data.get(currencyCode).getAsFloat();
 
-
-        // /String content = new String(Files.readAllBytes(Paths.get(secret)));
-
-
-        //URL url = new URL(baseURL/year-month-day);
-        //InputStream inputStream = url.openStream();
-    }
+}
 
     /**
      * Get the exchange rate of the first specified currency against the second
@@ -132,20 +127,21 @@ public class ExchangeRateReader {
             int year, int month, int day) throws IOException {
         // TODO Your code here
         String targetURL = baseURL + year + "-" + correctDate(month) + "-" + correctDate(day) + "?access_key=" + accessKey;
-
+        //Creates an URL
         URL url = new URL(targetURL);
-
+        //Opens the URL
         InputStream inputStream = url.openStream();
-
+        //Reads the input Stream
         Reader reader = new InputStreamReader(inputStream);
-
+        //Creates a JSON object inputing from the webpage
         JsonObject object = new JsonParser().parse(reader).getAsJsonObject();
-
+        //Creates the rates object from the JSON
         JsonObject data = object.getAsJsonObject("rates");
-        return data.get(fromCurrency).getAsFloat();
+        //Converts the two currencies to return the desired exchange rate
+        return rates.get(fromCurrency).getAsFloat() / rates.get(toCurrency).getAsFloat();
 
     }
-
+    //Pads to ensure if the date is less than 9, it is turned into a two digit integer
     public String correctDate(int num)
     {
         if(num < 10)
