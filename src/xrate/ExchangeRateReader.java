@@ -1,5 +1,9 @@
 package xrate;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -81,16 +85,29 @@ public class ExchangeRateReader {
      * @return the desired exchange rate
      * @throws IOException
      */
-    public float getExchangeRate(String currencyCode, int year, int month, int day) throws IOException {
+    public float getExchangeRate(String currencyCode, int year, int month, int day) throws IOException, UnsupportedOperationException {
         // TODO Your code here
-        String targetURL = baseURL + year + "-" + month + "-" + day + "?access_key" + accessKey;
+
+
+        String targetURL = baseURL + year + "-" + correctDate(month) + "-" + correctDate(day) + "?access_key=" + accessKey;
+
+        URL url = new URL(targetURL);
+
+        InputStream inputStream = url.openStream();
+
+        Reader reader = new InputStreamReader(inputStream);
+
+        JsonObject object = new JsonParser().parse(reader).getAsJsonObject();
+
+        JsonObject data = object.getAsJsonObject("rates");
+        return data.get(currencyCode).getAsFloat();
+
 
         // /String content = new String(Files.readAllBytes(Paths.get(secret)));
 
 
         //URL url = new URL(baseURL/year-month-day);
         //InputStream inputStream = url.openStream();
-        throw new UnsupportedOperationException();
     }
 
     /**
@@ -116,4 +133,18 @@ public class ExchangeRateReader {
         // TODO Your code here
         throw new UnsupportedOperationException();
     }
+
+    public String correctDate(int num)
+    {
+        if(num < 10)
+        {
+            return "0" + Integer.toString(num);
+        }
+        else
+        {
+            return Integer.toString(num);
+        }
+    }
 }
+
+
