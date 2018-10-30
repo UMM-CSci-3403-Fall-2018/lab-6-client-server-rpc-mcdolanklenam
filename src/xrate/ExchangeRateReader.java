@@ -131,7 +131,19 @@ public class ExchangeRateReader {
             String fromCurrency, String toCurrency,
             int year, int month, int day) throws IOException {
         // TODO Your code here
-        throw new UnsupportedOperationException();
+        String targetURL = baseURL + year + "-" + correctDate(month) + "-" + correctDate(day) + "?access_key=" + accessKey;
+
+        URL url = new URL(targetURL);
+
+        InputStream inputStream = url.openStream();
+
+        Reader reader = new InputStreamReader(inputStream);
+
+        JsonObject object = new JsonParser().parse(reader).getAsJsonObject();
+
+        JsonObject data = object.getAsJsonObject("rates");
+        return data.get(fromCurrency).getAsFloat();
+
     }
 
     public String correctDate(int num)
