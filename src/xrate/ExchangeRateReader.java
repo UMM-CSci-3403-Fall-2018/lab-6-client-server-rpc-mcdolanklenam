@@ -138,7 +138,7 @@ public class ExchangeRateReader {
         //Creates the rates object from the JSON
         JsonObject data = object.getAsJsonObject("rates");
         //Converts the two currencies to return the desired exchange rate
-        return rates.get(fromCurrency).getAsFloat() / rates.get(toCurrency).getAsFloat();
+        return data.get(fromCurrency).getAsFloat() / data.get(toCurrency).getAsFloat();
 
     }
     //Pads to ensure if the date is less than 9, it is turned into a two digit integer
